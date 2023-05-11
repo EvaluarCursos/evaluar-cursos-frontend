@@ -8,109 +8,142 @@ const DATOS_DB = {
     subject: "Analisis y diseño de sistemas1",
     semester: "2023-1"
   },
-  q1: {
-    aspect: "Materia: Importancia en el plan de estudios",
-    question:
-      "¿Cómo califica la importancia del curso dentro del plan de estudios?",
-    half: 4,
-    standardDeviation: 5,
-    variabilityCoefficient: 9,
-    validAnswers: 9  
+  seccion1: {
+          q1: {
+              question:
+                  "¿Cómo califica la importancia del curso dentro del plan de estudios?",
+              average: 4,
+              desv_est: 5,
+              coef_var: 9,
+              answers: 9  
+          },
+          total: {
+              t_average: 7,
+              t_desv_est: 7,
+              t_coef_var: 27,
+              t_answers: 9,
+          },
   },
-  q2: {
-    aspect: "Materia: Relación con los prerrequisitos",
-    question:
-      "¿Cómo considera que es la relación de la materia con sus prerrequisitos?",
-    half: 4,
-    standardDeviation: 5,
-    variabilityCoefficient: 9,
-    validAnswers: 9  
+  seccion2: {
+          q2: {
+              question:
+                  "¿Cómo considera que es la relación de la materia con sus prerrequisitos?",
+              average: 4,
+              desv_est: 5,
+              coef_var: 9,
+              answers: 9  
+          },
+          total: {
+              t_average: 7,
+              t_desv_est: 7,
+              t_coef_var: 27,
+              t_answers: 17,
+          },
   },
-  q3: {
-    aspect: "Materia: Actualidad",
-    question:
-      "¿Cómo evalúa la materia en cuánto a la actualidad y vigencia de sus temas?",
-    half: 4,
-    standardDeviation: 5,
-    variabilityCoefficient: 9,
-    validAnswers: 9  
-
+  seccion3: {
+          q3: {
+            question:
+            "¿Cómo evalúa la materia en cuánto a la actualidad y vigencia de sus temas?",
+            average: 4,
+            desv_est: 5,
+            coef_var: 9,
+            answers: 9  
+        },
+        total: {
+          t_average: 7,
+          t_desv_est: 7,
+          t_coef_var: 27,
+          t_answers: 17,
+      },
   },
-  q4: {
-    aspect: "Profesor: Manejo de evaluaciones",
-    question:
-      "¿Cómo evalúa la elaboración de evaluaciones y exámenes del profesor?",
-    half: 4,
-    standardDeviation: 5,
-    variabilityCoefficient: 9,
-    validAnswers: 9  
-
+  seccion4: {
+          
+          q4: {
+              question:
+              "¿Cómo evalúa la elaboración de evaluaciones y exámenes del profesor?",
+              average: 4,
+              desv_est: 5,
+              coef_var: 9,
+              answers: 9  
+          
+          },
+          q5: {
+              question:
+              "¿Cómo considera la objetividad del profesor a la hora de calificar?",
+              average: 4,
+              desv_est: 5,
+              coef_var: 9,
+              answers: 9  
+          
+          },
+          total: {
+                  t_average: 7,
+                  t_desv_est: 7,
+                  t_coef_var: 27,
+                  t_answers: 18,
+          }
   },
-  q5: {
-    aspect: "Profesor: Manejo de evaluaciones",
-    question:
-      "¿Cómo considera la objetividad del profesor a la hora de calificar?",
-    half: 4,
-    standardDeviation: 5,
-    variabilityCoefficient: 9,
-    validAnswers: 9  
-
+  seccion5: {
+          q7: {
+              question:
+              "¿Cómo considera que es el respeto y ecuanimidad con los estudiantes?",
+              average: 4,
+              desv_est: 5,
+              coef_var: 9,
+              answers: 9  
+          
+          },
+          q6: {
+            question:
+            "¿Cómo califica la disposición del profesor a atender dudas fuera del horario regular?",
+            average: 4,
+            desv_est: 5,
+            coef_var: 9,
+            answers: 9  
+        
+          },
+          total: {
+              t_average: 7,
+              t_desv_est: 7,
+              t_coef_var: 27,
+              t_answers: 17,
+          }
   },
-  q6: {
-    aspect: "Profesor: Relación con los estudiantes",
-    question:
-      "¿Cómo califica la disposición del profesor a atender dudas fuera del horario regular?",
-    half: 4,
-    standardDeviation: 5,
-    variabilityCoefficient: 9,
-    validAnswers: 9  
-
+  seccion6: {
+          q8: {
+              question:
+              "¿Cómo califica el dominio sobre los temas explicados por parte del profesor?",
+              average: 4,
+              desv_est: 5,
+              coef_var: 9,
+              answers: 9  
+          
+          },
+          q9: {
+              question: "¿Como califica la seguridad de exposición del profesor?",
+              average: 4,
+              desv_est: 5,
+              coef_var: 9,
+              answers: 9  
+          
+          },
+          q10: {
+              question:
+              "¿Cómo evalúa las respuestas a las preguntas e inquietudes de los estudiantes?",
+              average: 20,
+              desv_est: 10,
+              coef_var: 12,
+              answers: 15  
+          
+          },
+          total: {
+              t_average: 7,
+              t_desv_est: 7,
+              t_coef_var: 27,
+              t_answers: 17,
+          }
   },
-  q7: {
-    aspect: "Profesor: Relación con los estudiantes",
-    question:
-      "¿Cómo considera que es el respeto y ecuanimidad con los estudiantes?",
-    half: 4,
-    standardDeviation: 5,
-    variabilityCoefficient: 9,
-    validAnswers: 9  
-
-  },
-  q8: {
-    aspect: "Profesor: Conocimientos",
-    question:
-      "¿Cómo califica el dominio sobre los temas explicados por parte del profesor?",
-    half: 4,
-    standardDeviation: 5,
-    variabilityCoefficient: 9,
-    validAnswers: 9  
-
-  },
-  q9: {
-    aspect: "Profesor: Conocimientos",
-    question: "¿Como califica la seguridad de exposición del profesor?",
-    half: 4,
-    standardDeviation: 5,
-    variabilityCoefficient: 9,
-    validAnswers: 9  
-
-  },
-  q10: {
-    aspect: "Profesor: Conocimientos",
-    question:
-      "¿Cómo evalúa las respuestas a las preguntas e inquietudes de los estudiantes?",
-    half: 20,
-    standardDeviation: 10,
-    variabilityCoefficient: 12,
-    validAnswers: 15  
-
-  },
-  total: {
-    t_half: 7,
-    t_standardDeviation: 7,
-    t_variabilityCoefficient: 27,
-    t_validAnswers: 17,
-  }
+  
 
 }
 
