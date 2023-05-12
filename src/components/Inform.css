@@ -1,0 +1,40 @@
+.main-report{
+    background-color: var(--container-color);
+    width: 90%;
+    height: auto;
+    border-radius: 30px;
+    padding: 20px;
+    color: var(--background-dark);
+}
+
+.information{
+    display: flex;
+    gap: 40%;
+}
+
+.semester{
+    text-align: right;
+}
+
+.data{
+    display: flex;
+}
+
+table th,
+table td {
+  padding: 10px;
+  text-align: center;
+}
+
+table td:first-child {
+  text-align: left;
+}
+
+table {
+    margin-bottom: 30px;
+}
+
+.total-table {
+    text-align: right !important;
+    font-weight: bold;
+}
