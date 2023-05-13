@@ -1,29 +1,4 @@
 
-## `GET /log`
-**Request Scheme**
-Se hace una petición al backend con la Cookie `session`.
-Si el usuario es auténtico, el backend deberá responder con la siguiente información:
-```json
-{
-	"role": "student",
-	"courses": [
-			{
-				"id": 583753,
-				"code": "Código",
-				"teacher": "Nombre de Profesor",
-				"name": "Nombre de la materia"
-			},
-			{
-				"id": 839084,
-				"code": "Código 2",
-				"teacher": "Nombre de Profesor 2",
-				"name": "Nombre de la materia 2"
-			},
-	]
-}
-```
-Y si no lo es, deberá responder con un `HTTP Error Status 401`.
-
 ## `POST /log`
 
 **Request Scheme**
@@ -35,8 +10,10 @@ Y si no lo es, deberá responder con un `HTTP Error Status 401`.
 }
 ```
 **Respuesta Scheme**
+Si el usuario es un estudiante:
 ```json
 {
+	"userId": 17364,
 	"role": "student",
 	"courses": [
 			{
@@ -57,19 +34,26 @@ Y si no lo es, deberá responder con un `HTTP Error Status 401`.
 }
 ```
 
-En la HTTP Response se espera una cookie `session` con un token que identifique al usuario en la base de datos.
+Si el usuario es profesor:
+```json
+{
+	"userId": 3145,
+	"role": "teacher"
+}
+```
 
-## `POST /form`
+En caso de que el usuairo no sea autenticado, el backend derberá retornar un `HTTP Status 401`.
+
+## `POST /course/form`
 
 **Request Scheme**
-Esta solicitud se hace con la Cookie `session` para identificar al usuario.
+
 ```json
 {
 	"id": 34265844357,
 	"q1": 1,
 	"q2": 3,
-	
-	"qN": 4,
+	"q3": 4,
 	"feedback": "Comentario final"
 }
 ```
@@ -77,7 +61,25 @@ Esta solicitud se hace con la Cookie `session` para identificar al usuario.
 **Response Scheme**
 Si se registra correctamente, retornar un `HTTP Status 200`, de lo contrario `HTTP Status 400`.
 
-## `GET /courses?semester=value&faculty=value&course=value`
+## `POST /teacher/form`
+
+**Request Scheme**
+
+```json
+{
+	"id": 34265844357,
+	"q1": 1,
+	"q2": 3,
+	
+	"q7": 4,
+	"feedback": "Comentario final"
+}
+```
+
+**Response Scheme**
+Si se registra correctamente, retornar un `HTTP Status 200`, de lo contrario `HTTP Status 400`.
+
+## `GET /courses/{userId}?semester=value&faculty=value`
 
 Obtener una lista de cursos para un profesor. Los filtros de semestre, facultad y nombre del curso se pasan en la URL como `Query Params`, **todos opcionales**.
 
@@ -100,7 +102,7 @@ Obtener una lista de cursos para un profesor. Los filtros de semestre, facultad 
 ]
 ```
 
-## `GET /course/{id}`
+## `GET /course/{userId}/{courseId}`
 
 Obtiene informe evaluación para un curso. En la respuesta se debera incluir
  - Nombre del profesor
