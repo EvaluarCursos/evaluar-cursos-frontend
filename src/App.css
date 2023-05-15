@@ -6,6 +6,7 @@
   --default-hover: #2b7566;
   --container-color: #eafffa;
   --color1: #beece2;
+  --color2: #0d4136;
 }
 
 #root {
@@ -116,6 +117,19 @@ button {
   outline: none;
   border: none;
   border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+button:disabled {
+  background-color: var(--color2);
+  color: var(--background-light);
+}
+
+button:disabled:hover {
+  cursor: not-allowed;
+  background-color: var(--color2);
 }
 
 button:hover {
@@ -128,6 +142,16 @@ button.form {
   background-color: var(--container-color);
   color: var(--background-dark);
   font-size: 16px;
+}
+
+button.selected {
+  border: 3px solid var(--container-color);
+  background-color: var(--background-light);
+  color: var(--container-color);
+}
+
+button.selected.form:hover {
+  background-color: var(--color2);
 }
 
 button.form:hover {
