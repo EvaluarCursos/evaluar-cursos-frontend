@@ -1,68 +1,13 @@
 import { useState } from "react";
 import { Content } from "../components/Content";
 import { AnimatePresence } from "framer-motion";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faArrowLeftLong, faForward } from "@fortawesome/free-solid-svg-icons";
 import { useLocation, useNavigate } from "react-router";
 import { useMutation } from "react-query";
-import { COURSE_SELECT_ROUTE } from "../middleware/constants";
 import { sendForm } from "../middleware/fetchers";
 import { StepProgressBar } from "../components/StepProgressBar";
-
-const QUESTIONS = {
-  q1: {
-    aspect: "Materia: Importancia en el plan de estudios",
-    question:
-      "¿Cómo califica la importancia del curso dentro del plan de estudios?",
-  },
-  q2: {
-    aspect: "Materia: Relación con los prerrequisitos",
-    question:
-      "¿Cómo considera que es la relación de la materia con sus prerrequisitos?",
-  },
-  q3: {
-    aspect: "Materia: Actualidad",
-    question:
-      "¿Cómo evalúa la materia en cuánto a la actualidad y vigencia de sus temas?",
-  },
-  q4: {
-    aspect: "Profesor: Manejo de evaluaciones",
-    question:
-      "¿Cómo evalúa la elaboración de evaluaciones y exámenes del profesor?",
-  },
-  q5: {
-    aspect: "Profesor: Manejo de evaluaciones",
-    question:
-      "¿Cómo considera la objetividad del profesor a la hora de calificar?",
-  },
-  q6: {
-    aspect: "Profesor: Relación con los estudiantes",
-    question:
-      "¿Cómo califica la disposición del profesor a atender dudas fuera del horario regular?",
-  },
-  q7: {
-    aspect: "Profesor: Relación con los estudiantes",
-    question:
-      "¿Cómo considera que es el respeto y ecuanimidad con los estudiantes?",
-  },
-  q8: {
-    aspect: "Profesor: Conocimientos",
-    question:
-      "¿Cómo califica el dominio sobre los temas explicados por parte del profesor?",
-  },
-  q9: {
-    aspect: "Profesor: Conocimientos",
-    question: "¿Como califica la seguridad de exposición del profesor?",
-  },
-  q10: {
-    aspect: "Profesor: Conocimientos",
-    question:
-      "¿Cómo evalúa las respuestas a las preguntas e inquietudes de los estudiantes?",
-  },
-  feedback: {
-    question: "¿Qué retroalimentación general tiene sobre el curso o profesor?",
-  },
-};
+import AnswerOverview from "../components/AnswerOverview";
+import { QUESTIONS } from "../middleware/constants";
+import Icon from "../components/icons/Icon";
 
 const FormPage = ({ aspect, question, children, onReturn, onNext }) => {
   return (
@@ -72,15 +17,12 @@ const FormPage = ({ aspect, question, children, onReturn, onNext }) => {
       {children}
       <div style={{ display: "flex", justifyContent: "space-between" }}>
         <button className="form" onClick={onReturn}>
-          <FontAwesomeIcon
-            icon={faArrowLeftLong}
-            style={{ marginRight: "12px" }}
-          />
+          <Icon icon="arrowBack" style={{ marginRight: "6px" }} />
           Volver
         </button>
         <button className="form" onClick={onNext}>
           Siguiente
-          <FontAwesomeIcon icon={faForward} style={{ marginLeft: "12px" }} />
+          <Icon icon="arrowForward" style={{ marginLeft: "6px" }} />
         </button>
       </div>
     </div>
@@ -110,7 +52,7 @@ const FeedbackQuestion = ({ onEvaluation }) => {
   );
 };
 
-const Question = ({ id, aspect, question, onEvaluation }) => {
+const Question = ({ id, aspect, question, onEvaluation, currentValue }) => {
   return (
     <Content>
       <FormPage
@@ -120,19 +62,34 @@ const Question = ({ id, aspect, question, onEvaluation }) => {
         onNext={() => onEvaluation(id, 0)}
       >
         <div className="form_buttons">
-          <button className="form" onClick={() => onEvaluation(id, 1)}>
+          <button
+            className={`form${currentValue === 1 ? " selected" : ""}`}
+            onClick={() => onEvaluation(id, 1)}
+          >
             Muy malo
           </button>
-          <button className="form" onClick={() => onEvaluation(id, 2)}>
+          <button
+            className={`form${currentValue === 2 ? " selected" : ""}`}
+            onClick={() => onEvaluation(id, 2)}
+          >
             Malo
           </button>
-          <button className="form" onClick={() => onEvaluation(id, 3)}>
+          <button
+            className={`form${currentValue === 3 ? " selected" : ""}`}
+            onClick={() => onEvaluation(id, 3)}
+          >
             Regular
           </button>
-          <button className="form" onClick={() => onEvaluation(id, 4)}>
+          <button
+            className={`form${currentValue === 4 ? " selected" : ""}`}
+            onClick={() => onEvaluation(id, 4)}
+          >
             Bueno
           </button>
-          <button className="form" onClick={() => onEvaluation(id, 5)}>
+          <button
+            className={`form${currentValue === 5 ? " selected" : ""}`}
+            onClick={() => onEvaluation(id, 5)}
+          >
             Excelente
           </button>
         </div>
@@ -142,6 +99,10 @@ const Question = ({ id, aspect, question, onEvaluation }) => {
 };
 
 export const Form = () => {
+  function goToQuestion(questionId) {
+    setCQ(questionId);
+  }
+
   function handleEvaluation(questionID, value) {
     // -1: back, 0: skip
 
@@ -163,18 +124,16 @@ export const Form = () => {
       const next_id = Object.keys(QUESTIONS)[next_id_idx];
       setCQ(next_id);
     } else {
-      navigate(COURSE_SELECT_ROUTE);
+      navigate(-1);
     }
   }
 
   function handleSendForm() {
     sendFormMutation.mutate({
       formData: data,
-      id: state.id,
+      id,
     });
   }
-
-  const { state } = useLocation();
 
   const [data, setData] = useState({
     q1: null,
@@ -193,6 +152,7 @@ export const Form = () => {
   const [CQ, setCQ] = useState("q1");
 
   const navigate = useNavigate();
+  const id = useLocation().state.id;
 
   const sendFormMutation = useMutation({
     mutationFn: sendForm,
@@ -203,25 +163,31 @@ export const Form = () => {
       <Content>
         <div className="form">
           <StepProgressBar
-            currentStep={Object.keys(QUESTIONS).indexOf(CQ)}
-            steps={Object.keys(QUESTIONS).length}
+            currentStep={
+              CQ
+                ? Object.keys(QUESTIONS).indexOf(CQ)
+                : Object.keys(QUESTIONS).length
+            }
+            steps={Object.keys(QUESTIONS).length + 1}
           />
         </div>
       </Content>
       <AnimatePresence mode="wait">
-        {CQ === "feedback" ? (
-          <FeedbackQuestion
-            onEvaluation={handleEvaluation}
-            onSend={handleSendForm}
-          />
+        {CQ ? (
+          CQ === "feedback" ? (
+            <FeedbackQuestion onEvaluation={handleEvaluation} />
+          ) : (
+            <Question
+              id={CQ}
+              key={CQ}
+              aspect={QUESTIONS[CQ].aspect}
+              question={QUESTIONS[CQ].question}
+              onEvaluation={handleEvaluation}
+              currentValue={data[CQ]}
+            />
+          )
         ) : (
-          <Question
-            id={CQ}
-            key={CQ}
-            aspect={QUESTIONS[CQ].aspect}
-            question={QUESTIONS[CQ].question}
-            onEvaluation={handleEvaluation}
-          />
+          <AnswerOverview answers={data} onEditAnswer={goToQuestion} />
         )}
       </AnimatePresence>
     </>
