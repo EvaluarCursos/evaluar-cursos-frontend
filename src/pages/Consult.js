@@ -1,6 +1,8 @@
 import { Content } from "../components/Content";
 import React, { useState } from "react";
 import Select from "../components/Select";
+import { useNavigate } from "react-router";
+import { CONSULT_RESULTS_ROUTE } from "../middleware/constants";
 
 export const Consult = () => {
   const inquirie = [
@@ -20,7 +22,8 @@ export const Consult = () => {
       subject_matter: ["Cálculo diferencial", "Introducción", "Geometria"],
     },
   ];
-  const [selectedSemester, setSelectedSemester] = useState(-1);
+
+  const [, setSelectedSemester] = useState(-1);
   const [selectedFaculty, setSelectedFaculty] = useState(null);
   const subjectMatterOptions = inquirie[selectedFaculty]?.subject_matter || [];
   const handlerSemesterChange = (e) => {
@@ -33,6 +36,8 @@ export const Consult = () => {
     const option = e.target.value;
     setSelectedFaculty(option);
   };
+
+  const navigate = useNavigate();
 
   return (
     <Content>
@@ -68,7 +73,7 @@ export const Consult = () => {
             onChange={() => {}}
           />
         </div>
-        <button>Buscar</button>
+        <button onClick={() => navigate(CONSULT_RESULTS_ROUTE)}>Buscar</button>
       </div>
     </Content>
   );
