@@ -27,6 +27,11 @@ div.header_logo img {
   height: 50px;
 }
 
+div.header_user {
+  display: flex;
+  align-items: center;
+}
+
 div.header_user > svg {
   color: var(--background-dark);
   font-size: 40px;
@@ -54,7 +59,9 @@ div.user_info {
 }
 
 div.user_info > p {
+  display: flex;
   margin: 0;
+  align-items: center;
 }
 
 div.user_info svg {

@@ -1,15 +1,13 @@
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import "./Navbar.css";
-import {
-  faEnvelope,
-  faUser,
-  faUserCircle,
-} from "@fortawesome/free-solid-svg-icons";
 import { AnimatePresence, motion } from "framer-motion";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { FADE_DROPDOWN } from "./animations/framer-animations";
+import AuthContext from "./contexts/AuthContext";
+import Icon from "./icons/Icon";
 
 const UserInfo = () => {
+  const auth = useContext(AuthContext);
+
   return (
     <motion.div
       className="user_info"
@@ -19,10 +17,10 @@ const UserInfo = () => {
       exit="exit"
     >
       <p>
-        <FontAwesomeIcon icon={faUser} /> Nombre completo
+        <Icon icon="user" /> Nombre completo
       </p>
       <p>
-        <FontAwesomeIcon icon={faEnvelope} /> Correo
+        <Icon icon="mail" /> {auth.email}
       </p>
       <button>Cerrar Sesión</button>
     </motion.div>
@@ -39,8 +37,9 @@ export const Navbar = () => {
         <p className="title">Evaluar Cursos</p>
       </div>
       <div className="header_user">
-        <FontAwesomeIcon
-          icon={faUserCircle}
+        <Icon
+          icon="userCircle"
+          size={42}
           onClick={() => setUserInfoHidden(!userInfoHidden)}
         />
       </div>
