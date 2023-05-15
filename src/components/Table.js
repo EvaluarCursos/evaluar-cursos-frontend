@@ -20,8 +20,8 @@ const Table = ({ data }) => {
     "¿Cómo considera que es el respeto y ecuanimidad con los estudiantes?",
     "¿Cómo califica el dominio sobre los temas explicados por parte del profesor?",
     "¿Como califica la seguridad de exposición del profesor?",
-    "¿Cómo evalúa las respuestas a las preguntas e inquietudes de los estudiantes?"
-  ]
+    "¿Cómo evalúa las respuestas a las preguntas e inquietudes de los estudiantes?",
+  ];
 
   const items = Object.keys(data).filter((key) => key.startsWith("seccion"));
 
@@ -75,8 +75,6 @@ const Table = ({ data }) => {
           </div>
         );
       })}
-
-      <button>Anterior</button>
     </>
   );
 };
