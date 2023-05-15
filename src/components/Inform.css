@@ -1,23 +1,23 @@
-.main-report{
-    background-color: var(--container-color);
-    width: 90%;
-    height: auto;
-    border-radius: 30px;
-    padding: 20px;
-    color: var(--background-dark);
+.main-report {
+  background-color: var(--container-color);
+  width: 900px;
+  height: auto;
+  border-radius: 30px;
+  padding: 20px;
+  color: var(--background-dark);
 }
 
-.information{
-    display: flex;
-    gap: 40%;
+.information {
+  display: flex;
+  gap: 40%;
 }
 
-.semester{
-    text-align: right;
+.semester {
+  text-align: right;
 }
 
-.data{
-    display: flex;
+.data {
+  display: flex;
 }
 
 table th,
@@ -31,10 +31,10 @@ table td:first-child {
 }
 
 table {
-    margin-bottom: 30px;
+  margin-bottom: 30px;
 }
 
 .total-table {
-    text-align: right !important;
-    font-weight: bold;
+  text-align: right !important;
+  font-weight: bold;
 }
