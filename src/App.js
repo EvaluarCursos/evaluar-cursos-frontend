@@ -8,6 +8,14 @@ import { Login } from "./pages/Login";
 import { Results } from "./pages/Results";
 import { SelectCourse } from "./pages/SelectCourse";
 import { Navbar } from "./components/Navbar";
+import {
+  CONSULT_EVALUATION_ROUTE,
+  CONSULT_RESULTS_ROUTE,
+  COURSE_SELECT_ROUTE,
+  FORM_ROUTE,
+  INFORM_ROUTE,
+  LOGIN_ROUTE,
+} from "./middleware/constants";
 
 function App() {
   const queryClient = new QueryClient();
@@ -18,12 +26,12 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<div>Inicio</div>} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/select-course" element={<SelectCourse />} />
-          <Route path="/form" element={<Form />} />
-          <Route path="/consult" element={<Consult />} />
-          <Route path="/results" element={<Results />} />
-          <Route path="/inform" element={<Inform />} />
+          <Route path={LOGIN_ROUTE} element={<Login />} />
+          <Route path={COURSE_SELECT_ROUTE} element={<SelectCourse />} />
+          <Route path={FORM_ROUTE} element={<Form />} />
+          <Route path={CONSULT_EVALUATION_ROUTE} element={<Consult />} />
+          <Route path={CONSULT_RESULTS_ROUTE} element={<Results />} />
+          <Route path={INFORM_ROUTE} element={<Inform />} />
         </Routes>
       </BrowserRouter>
     </QueryClientProvider>
