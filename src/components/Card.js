@@ -1,18 +1,29 @@
-import { Content } from "../components/Content";
 import "../components/Card.css";
-export const Card = ({ subjectName, code, faculty }) => {
+
+export const Card = ({
+  title,
+  subtitle,
+  text,
+  buttonText,
+  disableButton,
+  onButtonClick,
+}) => {
   return (
-    <Content>
-      <div className="super-container">
-        <div className="small-container">
-          <h2> {subjectName}</h2>
-          <p className="codigo"> {code}</p>
-          <h3> {faculty}</h3>
-        </div>
-        <div>
-          <button className="button-container">VER</button>
-        </div>
+    <div className="card">
+      <div className="card-info">
+        <h3>{title}</h3>
+        <p className="card-subtitle">{subtitle}</p>
+        <p>
+          <b>{text}</b>
+        </p>
       </div>
-    </Content>
+      <button
+        className="card-button"
+        disabled={disableButton}
+        onClick={onButtonClick}
+      >
+        {buttonText}
+      </button>
+    </div>
   );
 };

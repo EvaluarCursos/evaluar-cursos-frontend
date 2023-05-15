@@ -6,29 +6,30 @@ export const Results = () => {
   const [results, setResults] = useState([
     {
       subjectName: "Cálculo",
-      code: "COD.38714",
+      code: "38714",
       faculty: "Facultad de Ingeniería",
     },
     {
       subjectName: "Ecuaciones",
-      code: "COD.38754",
+      code: "38754",
       faculty: "Facultad de Ingeniería",
     },
     {
       subjectName: "Inglés",
-      code: "COD.38455",
+      code: "38455",
       faculty: "Facultad de Ingeniería",
     },
   ]);
   return (
     <Content>
-      <div className="container1">
+      <div className="card-container">
         {results.map((result, index) => (
           <Card
             key={index}
-            subjectName={result.subjectName}
-            code={result.code}
-            faculty={result.faculty}
+            title={result.subjectName}
+            subtitle={"COD. " + result.code}
+            text={result.faculty}
+            buttonText="VER"
           />
         ))}
       </div>

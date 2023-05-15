@@ -1,36 +1,27 @@
 import { Content } from "../components/Content";
 import "../components/Card.css";
-import { useState } from "react";
-import { CardCourse } from "../components/CardCourse";
+import { Card } from "../components/Card";
+import { useLocation, useNavigate } from "react-router";
+import { FORM_ROUTE } from "../middleware/constants";
 
 export const SelectCourse = () => {
-  const [course, setCourse] = useState([
-    {
-      subjectName: "Cálculo",
-      code: "COD.38714",
-      faculty: "Facultad de Ingeniería",
-    },
-    {
-      subjectName: "Ecuaciones",
-      code: "COD.38754",
-      faculty: "Facultad de Ingeniería",
-    },
-    {
-      subjectName: "Inglés",
-      code: "COD.38455",
-      faculty: "Facultad de Ingeniería",
-    },
-  ]);
+  const courses = useLocation().state;
+  const navigate = useNavigate();
+
   return (
     <Content>
-      <div className="grid-container">
-        {course.map((course, index) => (
-            <CardCourse
-            key={index}
-            subjectName={course.subjectName}
-            code={course.code}
-            faculty={course.faculty}
-            cardClass={`card${index + 1}`}
+      <div className="card-container">
+        {courses.map((course) => (
+          <Card
+            key={course.id}
+            title={course.name}
+            subtitle={"COD " + course.code}
+            text={"Profesor: " + course.teacher}
+            buttonText={course.evaluated ? "EVALUADO" : "EVALUAR"}
+            disableButton={course.evaluated}
+            onButtonClick={() =>
+              navigate(FORM_ROUTE, { state: { id: course.id } })
+            }
           />
         ))}
       </div>
