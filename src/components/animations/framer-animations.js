@@ -31,3 +31,19 @@ export const FADE_DROPDOWN = {
     y: -20,
   },
 };
+
+export const DROPDOWN = {
+  initial: {
+    y: -200,
+  },
+  animate: {
+    y: 0,
+  },
+  exit: {
+    y: -200,
+  },
+  transition: {
+    type: "spring",
+    duration: 0.5,
+  },
+};
