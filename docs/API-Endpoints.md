@@ -50,6 +50,7 @@ En caso de que el usuairo no sea autenticado, el backend derberá retornar un `H
 
 ```json
 {
+	"userId": 17364,
 	"id": 34265844357,
 	"q1": 1,
 	"q2": 3,
@@ -67,6 +68,7 @@ Si se registra correctamente, retornar un `HTTP Status 200`, de lo contrario `HT
 
 ```json
 {
+	"userId": 17364,
 	"id": 34265844357,
 	"q1": 1,
 	"q2": 3,
