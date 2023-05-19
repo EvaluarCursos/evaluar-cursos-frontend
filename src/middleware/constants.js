@@ -59,3 +59,29 @@ export const QUESTIONS = {
     question: "¿Qué retroalimentación general tiene sobre el curso o profesor?",
   },
 };
+
+export const SEMESTERS = [
+  "2023-1",
+  "2022-2",
+  "2022-1",
+  "2021-2",
+  "2021-1",
+  "2020-2",
+];
+
+export const FACULTIES = [
+  "Artes",
+  "Ciencias Agrarias",
+  "Ciencias Económicas",
+  "Ciencias Exactas y Naturales",
+  "Ciencias Farmacéuticas y Alimentarias",
+  "Ciencias Sociales y Humanas",
+  "Comunicaciones y Filología",
+  "Derecho y Ciencias Políticas",
+  "Educación",
+  "Enfermería",
+  "Ingeniería",
+  "Medicina",
+  "Odontología",
+  "Salud Pública",
+];
