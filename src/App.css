@@ -76,6 +76,10 @@ textarea {
   border: 1px solid var(--background-light);
 }
 
+svg {
+  flex-shrink: 0;
+}
+
 textarea {
   resize: none;
 }
@@ -142,6 +146,16 @@ button.form {
   background-color: var(--container-color);
   color: var(--background-dark);
   font-size: 16px;
+}
+
+button.form:disabled {
+  background-color: var(--color2);
+  color: var(--background-light);
+}
+
+button.form:disabled:hover {
+  background-color: var(--color2);
+  cursor: default;
 }
 
 button.selected {
