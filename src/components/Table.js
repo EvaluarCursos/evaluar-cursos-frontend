@@ -11,16 +11,26 @@ const Table = ({ data }) => {
   ];
 
   const QUESTIONS_LIST = [
-    "¿Cómo califica la importancia del curso dentro del plan de estudios?",
-    "¿Cómo considera que es la relación de la materia con sus prerrequisitos?",
-    "¿Cómo evalúa la materia en cuánto a la actualidad y vigencia de sus temas?",
-    "¿Cómo evalúa la elaboración de evaluaciones y exámenes del profesor?",
-    "¿Cómo considera la objetividad del profesor a la hora de calificar?",
-    "¿Cómo califica la disposición del profesor a atender dudas fuera del horario regular?",
-    "¿Cómo considera que es el respeto y ecuanimidad con los estudiantes?",
-    "¿Cómo califica el dominio sobre los temas explicados por parte del profesor?",
-    "¿Como califica la seguridad de exposición del profesor?",
-    "¿Cómo evalúa las respuestas a las preguntas e inquietudes de los estudiantes?",
+    ["¿Cómo califica la importancia del curso dentro del plan de estudios?"],
+    [
+      "¿Cómo considera que es la relación de la materia con sus prerrequisitos?",
+    ],
+    [
+      "¿Cómo evalúa la materia en cuánto a la actualidad y vigencia de sus temas?",
+    ],
+    [
+      "¿Cómo evalúa la elaboración de evaluaciones y exámenes del profesor?",
+      "¿Cómo considera la objetividad del profesor a la hora de calificar?",
+    ],
+    [
+      "¿Cómo califica la disposición del profesor a atender dudas fuera del horario regular?",
+      "¿Cómo considera que es el respeto y ecuanimidad con los estudiantes?",
+    ],
+    [
+      "¿Cómo califica el dominio sobre los temas explicados por parte del profesor?",
+      "¿Como califica la seguridad de exposición del profesor?",
+      "¿Cómo evalúa las respuestas a las preguntas e inquietudes de los estudiantes?",
+    ],
   ];
 
   const items = Object.keys(data).filter((key) => key.startsWith("seccion"));
@@ -36,7 +46,7 @@ const Table = ({ data }) => {
             const question = item[questionKey];
             return (
               <tr key={questionKey}>
-                <td>{QUESTIONS_LIST[questionIndex]}</td>
+                <td>{QUESTIONS_LIST[index][questionIndex]}</td>
                 <td>{question.average}</td>
                 <td>{question.desv_est}</td>
                 <td>{question.coef_var}</td>
