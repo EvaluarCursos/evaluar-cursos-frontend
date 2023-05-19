@@ -13,13 +13,12 @@ function throwError(response, message) {
 }
 
 export async function login({ email, password }) {
-  const res = await fetch(`${API_URL}/login`, {
+  const res = await fetch(`${API_URL}/log`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
     body: JSON.stringify({ email, password }),
-    credentials: "include",
   });
 
   if (res.ok) {
@@ -35,7 +34,7 @@ async function sendPartialForm({ formData, id, endpointComplement }) {
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify({ ...formData, id }),
+    body: JSON.stringify({ ...formData, id }, (k, v) => v ?? null),
   });
 
   if (!res.ok) {
@@ -69,4 +68,26 @@ export async function sendForm({ formData, id }) {
     },
     endpointComplement: "teacher",
   });
+}
+
+export async function search({ userId, semester, faculty }) {
+  const res = await fetch(
+    `${API_URL}/courses/${userId}?semester=${semester}&faculty=${faculty}`
+  );
+
+  if (res.ok) {
+    return await res.json();
+  } else {
+    throwError(res);
+  }
+}
+
+export async function getInform({ userId, courseId }) {
+  const res = await fetch(`${API_URL}/course/${userId}/${courseId}`);
+
+  if (res.ok) {
+    return await res.json();
+  } else {
+    throwError(res);
+  }
 }
