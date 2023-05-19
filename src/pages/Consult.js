@@ -1,79 +1,67 @@
 import { Content } from "../components/Content";
-import React, { useState } from "react";
-import Select from "../components/Select";
+import React, { useContext, useState } from "react";
+import Select, { SelectOption } from "../components/Select";
 import { useNavigate } from "react-router";
-import { CONSULT_RESULTS_ROUTE } from "../middleware/constants";
+import {
+  CONSULT_RESULTS_ROUTE,
+  FACULTIES,
+  SEMESTERS,
+} from "../middleware/constants";
+import { useMutation } from "react-query";
+import { search } from "../middleware/fetchers";
+import NotificationContext from "../components/contexts/NotificationContext";
+import AuthContext from "../components/contexts/AuthContext";
 
 export const Consult = () => {
-  const inquirie = [
-    {
-      semester: "2021-1",
-      faculty: "Ingenieria",
-      subject_matter: ["Cálculo diferencial", "Introducción", "Geometria"],
-    },
-    {
-      semester: "2023-1",
-      faculty: "Medicina",
-      subject_matter: ["Cálculo diferencial", "Introducción", "Geometria"],
-    },
-    {
-      semester: "2022-1",
-      faculty: "Artes",
-      subject_matter: ["Cálculo diferencial", "Introducción", "Geometria"],
-    },
-  ];
-
-  const [, setSelectedSemester] = useState(-1);
-  const [selectedFaculty, setSelectedFaculty] = useState(null);
-  const subjectMatterOptions = inquirie[selectedFaculty]?.subject_matter || [];
-  const handlerSemesterChange = (e) => {
-    const option = e.target.value;
-    console.log(option);
-    setSelectedSemester(option);
-  };
-
-  const handleFacultyChange = (e) => {
-    const option = e.target.value;
-    setSelectedFaculty(option);
-  };
+  const [semester, setSemester] = useState("");
+  const [faculty, setFaculty] = useState("");
 
   const navigate = useNavigate();
+
+  const notification = useContext(NotificationContext);
+  const auth = useContext(AuthContext);
+
+  const { mutate, isLoading } = useMutation({
+    mutationFn: search,
+    onSuccess: (data) => navigate(CONSULT_RESULTS_ROUTE, { state: data }),
+    onError: () =>
+      notification.error("Ocurrió un error al buscar las evaluaciones"),
+  });
 
   return (
     <Content>
       <div className="container">
         <p className="title">Consulta de Evaluaciones</p>
         <div className="container2">
-          <h3 style={{ marginRight: "10px" }}>Semestre</h3>
+          <h3 style={{ marginRight: "24px" }}>Semestre</h3>
           <Select
-            options={inquirie.map((item, i) => ({
-              value: i,
-              label: item.semester,
-            }))}
-            onChange={handlerSemesterChange}
-          />
+            defaultText="Seleccione..."
+            setter={setSemester}
+            style={{ width: "170px" }}
+          >
+            {SEMESTERS.map((item) => (
+              <SelectOption text={item} value={item} key={item} />
+            ))}
+          </Select>
         </div>
         <div className="container2">
-          <h3 style={{ marginRight: "10px" }}>Facultad</h3>
+          <h3 style={{ marginRight: "24px" }}>Facultad</h3>
           <Select
-            options={inquirie.map((item, i) => ({
-              value: i,
-              label: item.faculty,
-            }))}
-            onChange={handleFacultyChange}
-          />
+            defaultText="Seleccione..."
+            setter={setFaculty}
+            style={{ width: "170px" }}
+          >
+            {FACULTIES.map((item) => (
+              <SelectOption text={item} value={item} key={item} />
+            ))}
+          </Select>
         </div>
-        <div className="container2">
-          <h3 style={{ marginRight: "10px" }}>Materia</h3>
-          <Select
-            options={subjectMatterOptions.map((item, i) => ({
-              value: i,
-              label: item,
-            }))}
-            onChange={() => {}}
-          />
-        </div>
-        <button onClick={() => navigate(CONSULT_RESULTS_ROUTE)}>Buscar</button>
+        <button
+          onClick={() => mutate({ userId: auth.userId, semester, faculty })}
+          disabled={!(semester && faculty) || isLoading}
+        >
+          {isLoading ? "Buscando" : "Buscar"}
+        </button>
       </div>
     </Content>
   );
