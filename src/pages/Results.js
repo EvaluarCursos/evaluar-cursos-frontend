@@ -1,35 +1,25 @@
 import { Content } from "../components/Content";
 import { Card } from "../components/Card";
 import "../components/Card.css";
-import { useState } from "react";
+import { useLocation, useNavigate } from "react-router";
+import { INFORM_ROUTE } from "../middleware/constants";
+
 export const Results = () => {
-  const [results, setResults] = useState([
-    {
-      subjectName: "Cálculo",
-      code: "38714",
-      faculty: "Facultad de Ingeniería",
-    },
-    {
-      subjectName: "Ecuaciones",
-      code: "38754",
-      faculty: "Facultad de Ingeniería",
-    },
-    {
-      subjectName: "Inglés",
-      code: "38455",
-      faculty: "Facultad de Ingeniería",
-    },
-  ]);
+  const results = useLocation().state;
+
+  const navigate = useNavigate();
+
   return (
     <Content>
       <div className="card-container">
-        {results.map((result, index) => (
+        {results.map((result) => (
           <Card
-            key={index}
-            title={result.subjectName}
+            key={result.id}
+            title={result.name}
             subtitle={"COD. " + result.code}
             text={result.faculty}
             buttonText="VER"
+            onButtonClick={() => navigate(INFORM_ROUTE, { state: result })}
           />
         ))}
       </div>
