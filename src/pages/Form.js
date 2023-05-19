@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { Content } from "../components/Content";
 import { AnimatePresence } from "framer-motion";
 import { useLocation, useNavigate } from "react-router";
@@ -8,6 +8,7 @@ import { StepProgressBar } from "../components/StepProgressBar";
 import AnswerOverview from "../components/AnswerOverview";
 import { QUESTIONS } from "../middleware/constants";
 import Icon from "../components/icons/Icon";
+import NotificationContext from "../components/contexts/NotificationContext";
 
 const FormPage = ({ aspect, question, children, onReturn, onNext }) => {
   return (
@@ -135,6 +136,11 @@ export const Form = () => {
     });
   }
 
+  function sendFormSuccess() {
+    notifications.success("Formulario enviado con éxito");
+    navigate(-1);
+  }
+
   const [data, setData] = useState({
     q1: null,
     q2: null,
@@ -156,7 +162,12 @@ export const Form = () => {
 
   const sendFormMutation = useMutation({
     mutationFn: sendForm,
+    onSuccess: sendFormSuccess,
+    onError: () =>
+      notifications.error("Ocurrió un error al enviar el formulario"),
   });
+
+  const notifications = useContext(NotificationContext);
 
   return (
     <>
@@ -187,7 +198,13 @@ export const Form = () => {
             />
           )
         ) : (
-          <AnswerOverview answers={data} onEditAnswer={goToQuestion} />
+          <AnswerOverview
+            answers={data}
+            onEditAnswer={goToQuestion}
+            onReturn={() => goToQuestion("feedback")}
+            onSend={handleSendForm}
+            disableButton={sendFormMutation.isLoading}
+          />
         )}
       </AnimatePresence>
     </>

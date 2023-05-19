@@ -1,0 +1,33 @@
+:root {
+  --notification-success: #00c462;
+  --notification-error: #e94c4c;
+}
+
+div.notification {
+  display: flex;
+  align-items: center;
+  box-sizing: border-box;
+  justify-content: center;
+  position: fixed;
+  top: 20px;
+  left: calc(50% - 175px);
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  z-index: 2;
+  width: 350px;
+  padding: 20px;
+  border-radius: 12px;
+  gap: 14px;
+  text-align: center;
+}
+
+div.notification.success {
+  background-color: var(--notification-success);
+  color: white;
+  font-weight: 900;
+}
+
+div.notification.error {
+  background-color: var(--notification-error);
+  color: white;
+  font-weight: 900;
+}

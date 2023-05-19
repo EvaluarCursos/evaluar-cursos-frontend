@@ -8,14 +8,17 @@ import {
   COURSE_SELECT_ROUTE,
 } from "../middleware/constants";
 import AuthContext from "../components/contexts/AuthContext";
+import NotificationContext from "../components/contexts/NotificationContext";
+import { UnauthorizedError } from "../middleware/http-errors";
 
 export const Login = () => {
-  function handleLoginSuccess(data) {
+  function loginSuccess(data) {
     auth.setData({
       email: emailRef.current.value,
       role: data.role,
       userId: data.userId,
     });
+    notifications.success("Sesión iniciada");
     if (data.role === "student") {
       navigate(COURSE_SELECT_ROUTE, { state: data.courses });
     } else {
@@ -23,9 +26,18 @@ export const Login = () => {
     }
   }
 
+  function loginError(error) {
+    if (error instanceof UnauthorizedError) {
+      notifications.error("Usuario o contraseña incorrectos");
+    } else {
+      notifications.error("Error al iniciar sesión");
+    }
+  }
+
   const loginMutation = useMutation({
     mutationFn: fetchers.login,
-    onSuccess: handleLoginSuccess,
+    onSuccess: loginSuccess,
+    onError: loginError,
   });
 
   const emailRef = useRef();
@@ -33,6 +45,8 @@ export const Login = () => {
   const navigate = useNavigate();
 
   const auth = useContext(AuthContext);
+
+  const notifications = useContext(NotificationContext);
 
   return (
     <Content>
