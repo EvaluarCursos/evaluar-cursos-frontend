@@ -4,9 +4,16 @@ import { useContext, useState } from "react";
 import { FADE_DROPDOWN } from "./animations/framer-animations";
 import AuthContext from "./contexts/AuthContext";
 import Icon from "./icons/Icon";
+import NotificationContext from "./contexts/NotificationContext";
 
 const UserInfo = () => {
+  function logout() {
+    notification.success("Sesión cerrada correctamente.");
+    auth.setData({});
+  }
+
   const auth = useContext(AuthContext);
+  const notification = useContext(NotificationContext);
 
   return (
     <motion.div
@@ -22,7 +29,7 @@ const UserInfo = () => {
       <p>
         <Icon icon="mail" /> {auth.email}
       </p>
-      <button>Cerrar Sesión</button>
+      <button onClick={logout}>Cerrar Sesión</button>
     </motion.div>
   );
 };
