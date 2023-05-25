@@ -83,6 +83,10 @@ export async function search({ userId, semester, faculty }) {
 }
 
 export async function getInform({ userId, courseId }) {
+  if (!(userId && courseId)) {
+    throw new Error("Missing userId or courseId");
+  }
+
   const res = await fetch(`${API_URL}/course/${userId}/${courseId}`);
 
   if (res.ok) {

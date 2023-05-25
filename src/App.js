@@ -1,5 +1,5 @@
 import { QueryClient, QueryClientProvider } from "react-query";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import "./App.css";
 import { Consult } from "./pages/Consult";
 import { Form } from "./pages/Form";
@@ -58,7 +58,7 @@ function App() {
           <Navbar />
           <BrowserRouter>
             <Routes>
-              <Route path="/" element={<div>Inicio</div>} />
+              <Route path="/" element={<Navigate to={LOGIN_ROUTE} />} />
               <Route path={LOGIN_ROUTE} element={<Login />} />
               <Route path={COURSE_SELECT_ROUTE} element={<SelectCourse />} />
               <Route path={FORM_ROUTE} element={<Form />} />

@@ -1,8 +1,8 @@
-import { useLocation, useNavigate } from "react-router";
+import { Navigate, useLocation, useNavigate } from "react-router";
 import { Content } from "../components/Content";
 import "../components/Inform.css";
 import Table from "../components/Table";
-import { CONSULT_EVALUATION_ROUTE } from "../middleware/constants";
+import { LOGIN_ROUTE } from "../middleware/constants";
 import { useQuery } from "react-query";
 import { getInform } from "../middleware/fetchers";
 import { useContext } from "react";
@@ -18,11 +18,15 @@ export const Inform = () => {
 
   const { isLoading, data } = useQuery({
     queryFn: () => getInform({ userId: auth.userId, courseId: result.id }),
-    queryKey: "inform" + result.id,
+    queryKey: "inform" + (result ? result.id : ""),
     onError: () => notification.error("No se pudo obtener el informe."),
   });
 
   const navigate = useNavigate();
+
+  if (auth.userId === null || result === null) {
+    return <Navigate to={LOGIN_ROUTE} />;
+  }
 
   if (isLoading) {
     return (
@@ -59,9 +63,7 @@ export const Inform = () => {
         <div className="data">
           <div className="questions">
             <Table data={data} />
-            <button onClick={() => navigate(CONSULT_EVALUATION_ROUTE)}>
-              Anterior
-            </button>
+            <button onClick={() => navigate(-1)}>Anterior</button>
           </div>
         </div>
       </section>

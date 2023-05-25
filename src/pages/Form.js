@@ -9,6 +9,7 @@ import AnswerOverview from "../components/AnswerOverview";
 import { QUESTIONS } from "../middleware/constants";
 import Icon from "../components/icons/Icon";
 import NotificationContext from "../components/contexts/NotificationContext";
+import AuthContext from "../components/contexts/AuthContext";
 
 const FormPage = ({ aspect, question, children, onReturn, onNext }) => {
   return (
@@ -30,8 +31,8 @@ const FormPage = ({ aspect, question, children, onReturn, onNext }) => {
   );
 };
 
-const FeedbackQuestion = ({ onEvaluation }) => {
-  const [feedbackText, setFeedbackText] = useState("");
+const FeedbackQuestion = ({ currentValue, onEvaluation }) => {
+  const [feedbackText, setFeedbackText] = useState(currentValue ?? "");
 
   return (
     <Content>
@@ -138,6 +139,13 @@ export const Form = () => {
 
   function sendFormSuccess() {
     notifications.success("Formulario enviado con éxito");
+    const auth_ = { ...auth };
+    delete auth_.setData;
+    auth_.courses[auth.courses.findIndex((c) => c.id === id)].evaluated = true;
+    auth.setData({
+      ...auth_,
+      courses: auth_.courses,
+    });
     navigate(-1);
   }
 
@@ -168,6 +176,7 @@ export const Form = () => {
   });
 
   const notifications = useContext(NotificationContext);
+  const auth = useContext(AuthContext);
 
   return (
     <>
@@ -186,7 +195,10 @@ export const Form = () => {
       <AnimatePresence mode="wait">
         {CQ ? (
           CQ === "feedback" ? (
-            <FeedbackQuestion onEvaluation={handleEvaluation} />
+            <FeedbackQuestion
+              onEvaluation={handleEvaluation}
+              currentValue={data[CQ]}
+            />
           ) : (
             <Question
               id={CQ}

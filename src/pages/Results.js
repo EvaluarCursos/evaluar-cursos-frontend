@@ -1,13 +1,17 @@
 import { Content } from "../components/Content";
 import { Card } from "../components/Card";
 import "../components/Card.css";
-import { useLocation, useNavigate } from "react-router";
-import { INFORM_ROUTE } from "../middleware/constants";
+import { Navigate, useLocation, useNavigate } from "react-router";
+import { INFORM_ROUTE, LOGIN_ROUTE } from "../middleware/constants";
 
 export const Results = () => {
   const results = useLocation().state;
 
   const navigate = useNavigate();
+
+  if (results == null) {
+    return <Navigate to={LOGIN_ROUTE} />;
+  }
 
   return (
     <Content>

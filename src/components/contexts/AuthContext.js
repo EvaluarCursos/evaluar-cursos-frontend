@@ -4,6 +4,7 @@ const AuthContext = createContext({
   userId: null,
   role: null,
   email: null,
+  courses: null,
   setData: (data) => {},
 });
 

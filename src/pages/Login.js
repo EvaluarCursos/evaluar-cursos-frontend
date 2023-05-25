@@ -1,4 +1,4 @@
-import React, { useContext, useRef } from "react";
+import React, { useContext, useState } from "react";
 import { useMutation } from "react-query";
 import { useNavigate } from "react-router";
 import { Content } from "../components/Content";
@@ -14,9 +14,8 @@ import { UnauthorizedError } from "../middleware/http-errors";
 export const Login = () => {
   function loginSuccess(data) {
     auth.setData({
-      email: emailRef.current.value,
-      role: data.role,
-      userId: data.userId,
+      email: email,
+      ...data,
     });
     notifications.success("Sesión iniciada");
     if (data.role === "student") {
@@ -40,8 +39,8 @@ export const Login = () => {
     onError: loginError,
   });
 
-  const emailRef = useRef();
-  const passwordRef = useRef();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
   const auth = useContext(AuthContext);
@@ -50,16 +49,27 @@ export const Login = () => {
 
   return (
     <Content>
-      <div className="container">
+      <div className="container" style={{ width: "250px" }}>
         <p className="title">Iniciar Sesión</p>
-        <input placeholder="Correo" ref={emailRef} />
-        <input ref={passwordRef} placeholder="Contraseña" type="password" />
+        <input
+          placeholder="Correo"
+          style={{ width: "100%" }}
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+        />
+        <input
+          placeholder="Contraseña"
+          type="password"
+          style={{ width: "100%" }}
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+        />
         <button
-          disabled={loginMutation.isLoading}
+          disabled={loginMutation.isLoading || !email || !password}
           onClick={() =>
             loginMutation.mutate({
-              email: emailRef.current.value,
-              password: passwordRef.current.value,
+              email: email,
+              password: password,
             })
           }
         >

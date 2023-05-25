@@ -1,10 +1,11 @@
 import { Content } from "../components/Content";
 import React, { useContext, useState } from "react";
 import Select, { SelectOption } from "../components/Select";
-import { useNavigate } from "react-router";
+import { Navigate, useNavigate } from "react-router";
 import {
   CONSULT_RESULTS_ROUTE,
   FACULTIES,
+  LOGIN_ROUTE,
   SEMESTERS,
 } from "../middleware/constants";
 import { useMutation } from "react-query";
@@ -27,6 +28,10 @@ export const Consult = () => {
     onError: () =>
       notification.error("Ocurrió un error al buscar las evaluaciones"),
   });
+
+  if (!auth.userId) {
+    return <Navigate to={LOGIN_ROUTE} />;
+  }
 
   return (
     <Content>

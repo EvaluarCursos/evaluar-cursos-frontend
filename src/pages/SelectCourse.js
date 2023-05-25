@@ -1,12 +1,18 @@
 import { Content } from "../components/Content";
 import "../components/Card.css";
 import { Card } from "../components/Card";
-import { useLocation, useNavigate } from "react-router";
-import { FORM_ROUTE } from "../middleware/constants";
+import { Navigate, useNavigate } from "react-router";
+import { FORM_ROUTE, LOGIN_ROUTE } from "../middleware/constants";
+import { useContext } from "react";
+import AuthContext from "../components/contexts/AuthContext";
 
 export const SelectCourse = () => {
-  const courses = useLocation().state;
+  const courses = useContext(AuthContext).courses;
   const navigate = useNavigate();
+
+  if (courses == null) {
+    return <Navigate to={LOGIN_ROUTE} />;
+  }
 
   return (
     <Content>
