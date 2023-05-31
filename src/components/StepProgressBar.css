@@ -32,9 +32,4 @@ div.background_line {
 
 svg.step_progress_bar_dot {
   color: white;
-  font-size: 12px;
-}
-
-svg.step_progress_bar_dot.active {
-  font-size: 24px;
 }

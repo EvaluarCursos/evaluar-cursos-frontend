@@ -212,3 +212,25 @@ export const selector = (
     <path d="M16 15l-4 4l-4 -4"></path>
   </svg>
 );
+
+export const circleFilled = (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    className="icon icon-tabler icon-tabler-circle-filled"
+    width={24}
+    height={24}
+    viewBox="0 0 24 24"
+    strokeWidth={2}
+    stroke="currentColor"
+    fill="none"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+  >
+    <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+    <path
+      d="M7 3.34a10 10 0 1 1 -4.995 8.984l-.005 -.324l.005 -.324a10 10 0 0 1 4.995 -8.336z"
+      strokeWidth={0}
+      fill="currentColor"
+    ></path>
+  </svg>
+);
