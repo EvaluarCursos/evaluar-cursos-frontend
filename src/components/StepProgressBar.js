@@ -1,12 +1,12 @@
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import "./StepProgressBar.css";
-import { faCircle } from "@fortawesome/free-solid-svg-icons";
+import Icon from "./icons/Icon";
 
 const Dot = ({ active }) => {
   return (
-    <FontAwesomeIcon
-      className={`step_progress_bar_dot${active ? " active" : ""}`}
-      icon={faCircle}
+    <Icon
+      className="step_progress_bar_dot"
+      icon="circleFilled"
+      size={active ? 24 : 12}
     />
   );
 };

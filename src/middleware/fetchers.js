@@ -29,14 +29,13 @@ export async function login({ email, password }) {
   }
 }
 
-async function sendPartialForm({ formData, id, endpointComplement,userId }) {
-  
+async function sendPartialForm({ formData, id, userId, endpointComplement }) {
   const res = await fetch(`${API_URL}/${endpointComplement}/form`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify({ ...formData, id ,userId}, (k, v) => v ?? null),
+    body: JSON.stringify({ ...formData, id, userId }, (k, v) => v ?? null),
   });
 
   if (!res.ok) {
@@ -44,9 +43,10 @@ async function sendPartialForm({ formData, id, endpointComplement,userId }) {
   }
 }
 
-export async function sendForm({ formData, id }) {
+export async function sendForm({ formData, id, userId }) {
   await sendPartialForm({
     id,
+    userId,
     formData: {
       q1: formData.q1,
       q2: formData.q2,
@@ -58,6 +58,7 @@ export async function sendForm({ formData, id }) {
 
   await sendPartialForm({
     id,
+    userId,
     formData: {
       q1: formData.q4,
       q2: formData.q5,
