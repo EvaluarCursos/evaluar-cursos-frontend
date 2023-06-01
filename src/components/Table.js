@@ -73,13 +73,13 @@ const Table = ({ data }) => {
               </thead>
               <tbody>{questions}</tbody>
               <tfoot>
-                <tr>
+                {/* <tr>
                   <td className="total-table">TOTAL</td>
                   <td>{total.t_average}</td>
                   <td>{total.t_desv_est}</td>
                   <td>{total.t_coef_var}</td>
                   <td>{total.t_answers}</td>
-                </tr>
+                </tr> */}
               </tfoot>
             </table>
           </div>

@@ -19,14 +19,15 @@ export const SelectCourse = () => {
       <div className="card-container">
         {courses.map((course) => (
           <Card
-            key={course.id}
-            title={course.name}
+            key={course.idMateria}
+            title={course.nombreMateria}
             subtitle={"COD " + course.code}
-            text={"Profesor: " + course.teacher}
+            //AGREGUE LA MANERA DE ACCEDER AL NOMBRE DEL PROFESOR
+            text={"Profesor: " + course.professor.nombre}
             buttonText={course.evaluated ? "EVALUADO" : "EVALUAR"}
             disableButton={course.evaluated}
             onButtonClick={() =>
-              navigate(FORM_ROUTE, { state: { id: course.id } })
+              navigate(FORM_ROUTE, { state: { id: course.idMateria} })
             }
           />
         ))}

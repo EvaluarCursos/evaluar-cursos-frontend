@@ -129,11 +129,12 @@ export const Form = () => {
       navigate(-1);
     }
   }
-
+  const auth = useContext(AuthContext);
   function handleSendForm() {
     sendFormMutation.mutate({
       formData: data,
       id,
+      userId:auth.userId
     });
   }
 
@@ -176,7 +177,7 @@ export const Form = () => {
   });
 
   const notifications = useContext(NotificationContext);
-  const auth = useContext(AuthContext);
+
 
   return (
     <>

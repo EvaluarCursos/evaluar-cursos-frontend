@@ -12,10 +12,9 @@ import Loader from "../components/Loader";
 
 export const Inform = () => {
   const result = useLocation().state;
-
+  
   const notification = useContext(NotificationContext);
   const auth = useContext(AuthContext);
-
   const { isLoading, data } = useQuery({
     queryFn: () => getInform({ userId: auth.userId, courseId: result.id }),
     queryKey: "inform" + (result ? result.id : ""),

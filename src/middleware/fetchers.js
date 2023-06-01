@@ -13,7 +13,8 @@ function throwError(response, message) {
 }
 
 export async function login({ email, password }) {
-  const res = await fetch(`${API_URL}/log`, {
+  //AGREGUE /USUARIO A LA URL
+  const res = await fetch(`${API_URL}/usuario/log`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -28,13 +29,14 @@ export async function login({ email, password }) {
   }
 }
 
-async function sendPartialForm({ formData, id, endpointComplement }) {
+async function sendPartialForm({ formData, id, endpointComplement,userId }) {
+  
   const res = await fetch(`${API_URL}/${endpointComplement}/form`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify({ ...formData, id }, (k, v) => v ?? null),
+    body: JSON.stringify({ ...formData, id ,userId}, (k, v) => v ?? null),
   });
 
   if (!res.ok) {
@@ -51,7 +53,7 @@ export async function sendForm({ formData, id }) {
       q3: formData.q3,
       feedback: formData.feedback,
     },
-    endpointComplement: "course",
+    endpointComplement: "evaluacion-materia",
   });
 
   await sendPartialForm({
@@ -66,13 +68,16 @@ export async function sendForm({ formData, id }) {
       q7: formData.q10,
       feedback: formData.feedback,
     },
-    endpointComplement: "teacher",
+    endpointComplement: "evaluacion-profesor",
   });
 }
 
 export async function search({ userId, semester, faculty }) {
+  
+
+  //AGREGUE SLASH DESPUES DEL USER ID
   const res = await fetch(
-    `${API_URL}/courses/${userId}?semester=${semester}&faculty=${faculty}`
+    `${API_URL}/courses/${userId}/?semester=${semester}&faculty=${faculty}`
   );
 
   if (res.ok) {
@@ -83,11 +88,14 @@ export async function search({ userId, semester, faculty }) {
 }
 
 export async function getInform({ userId, courseId }) {
+  console.log(userId,courseId)
+  console.log(courseId)
   if (!(userId && courseId)) {
     throw new Error("Missing userId or courseId");
   }
 
-  const res = await fetch(`${API_URL}/course/${userId}/${courseId}`);
+  //AGREGUE UNA S A COURSE 
+  const res = await fetch(`${API_URL}/courses/${userId}/${courseId}`);
 
   if (res.ok) {
     return await res.json();
